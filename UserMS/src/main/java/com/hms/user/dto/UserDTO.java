@@ -14,15 +14,14 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class UserDTO {
     private Long id;
-
     @NotEmpty(message = "Name should not be empty")
     private String name;
     @NotEmpty(message="Email should not be empty")
-    @Email
+    @Email(message="Enter valid email address")
     private String email;
     @NotEmpty(message="Password should not be empty")
     private String password;
-    @Pattern(regexp = "PATIENT|DOCTOR|ADMIN", message = "Role must be PATIENT, DOCTOR, or ADMIN")
+   
     private Roles role;
 
 }

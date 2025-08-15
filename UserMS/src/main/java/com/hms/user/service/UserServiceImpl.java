@@ -1,4 +1,5 @@
 package com.hms.user.service;
+import com.hms.user.dto.LoginDTO;
 import com.hms.user.dto.UserDTO;
 import com.hms.user.entity.User;
 import com.hms.user.exceptions.HmsExceptions;
@@ -28,14 +29,14 @@ public class UserServiceImpl implements  UserService{
         userDTO.setPassword(passwordEncoder.encode(userDTO.getPassword()));
         userRepository.save(userMapper.toEntity(userDTO));
     }
-    @Override
-    public UserDTO loginUser(UserDTO userDTO) throws HmsExceptions {
-        User user=userRepository.findByEmail(userDTO.getEmail()).orElseThrow(()->new HmsExceptions("USER_NOT_FOUND"));
-        if(!passwordEncoder.matches(userDTO.getPassword(),user.getPassword())){
-            throw new HmsExceptions("INVALID_CREDENTIALS");
-        }
-        return userMapper.toDTO(user);
-    }
+    // @Override
+    // public String loginUser(LoginDTO userDTO) throws HmsExceptions {
+    //     User user=userRepository.findByEmail(userDTO.getEmail()).orElseThrow(()->new HmsExceptions("USER_NOT_FOUND"));
+    //     if(!passwordEncoder.matches(userDTO.getPassword(),user.getPassword())){
+    //         throw new HmsExceptions("INVALID_CREDENTIALS");
+    //     }
+    //     return userMapper.toDTO(user);
+    // }
 
     @Override
     public UserDTO getUserById(Long id) throws HmsExceptions {
@@ -48,5 +49,13 @@ public class UserServiceImpl implements  UserService{
     @Override
     public void updateUser(UserDTO userDTO) {
 
+    }
+    @Override
+    public UserDTO getUserByEmail(String email) throws HmsExceptions {
+        // TODO Auto-generated method stub
+        return userMapper.toDTO(
+                userRepository.findByEmail(email)
+                        .orElseThrow(() -> new HmsExceptions("USER_NOT_FOUND"))
+        );
     }
 }

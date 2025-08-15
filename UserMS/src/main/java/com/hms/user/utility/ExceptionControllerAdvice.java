@@ -22,6 +22,23 @@ public class ExceptionControllerAdvice {
     Environment environment;
     private static final Logger logger = LoggerFactory.getLogger(ExceptionControllerAdvice.class);
 
+
+    @ExceptionHandler(NestedServletException.class)
+public ResponseEntity<ErrorInfo> handleNestedServletException(NestedServletException ex) {
+    Throwable cause = ex.getCause();
+    if (cause instanceof HmsExceptions) {
+        return hmsExceptionHandler((HmsExceptions) cause);
+    } else if (cause instanceof MethodArgumentNotValidException) {
+        return handleMethodArgNotValid((MethodArgumentNotValidException) cause);
+    } else if (cause instanceof ConstraintViolationException) {
+        return handleConstraintViolation((ConstraintViolationException) cause);
+    }
+    ErrorInfo errorInfo = new ErrorInfo();
+    errorInfo.setErrorCode(HttpStatus.INTERNAL_SERVER_ERROR.value());
+    errorInfo.setErrorMessage("Some Error Occurred");
+    errorInfo.setTimestamp(LocalDateTime.now());
+    return new ResponseEntity<>(errorInfo, HttpStatus.INTERNAL_SERVER_ERROR);
+}
     @ExceptionHandler(HmsExceptions.class)
     public ResponseEntity<ErrorInfo> hmsExceptionHandler(HmsExceptions e) {
         ErrorInfo errorInfo = new ErrorInfo();
@@ -54,13 +71,13 @@ public class ExceptionControllerAdvice {
         errorInfo.setTimestamp(LocalDateTime.now());
         return new ResponseEntity<>(errorInfo, HttpStatus.BAD_REQUEST);
     }
-//    @ExceptionHandler(Exception.class)
-//    public ResponseEntity<ErrorInfo> exceptionHandler(Exception e) {
-//        logger.error("generic exceptionHandler triggered", e);
-//        ErrorInfo errorInfo = new ErrorInfo();
-//        errorInfo.setErrorCode(HttpStatus.INTERNAL_SERVER_ERROR.value());
-//        errorInfo.setErrorMessage("Some Error Occurred");
-//        errorInfo.setTimestamp(LocalDateTime.now());
-//        return new ResponseEntity<>(errorInfo, HttpStatus.INTERNAL_SERVER_ERROR);
-//    }
+   @ExceptionHandler(Exception.class)
+   public ResponseEntity<ErrorInfo> exceptionHandler(Exception e) {
+        logger.error("generic exceptionHandler triggered: " + e.getClass().getName(), e);
+       ErrorInfo errorInfo = new ErrorInfo();
+       errorInfo.setErrorCode(HttpStatus.INTERNAL_SERVER_ERROR.value());
+       errorInfo.setErrorMessage("Some Error Occurred");
+       errorInfo.setTimestamp(LocalDateTime.now());
+       return new ResponseEntity<>(errorInfo, HttpStatus.INTERNAL_SERVER_ERROR);
+   }
 }
