@@ -24,7 +24,6 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequestMapping("/user")
 @Validated
-@CrossOrigin
 @RequiredArgsConstructor
 public class UserController {
     private final UserService userService;
@@ -35,7 +34,7 @@ public class UserController {
     @Autowired
     private JwtUtil jwtUtil;
 
-    @PostMapping("/create")
+    @PostMapping("/register")
     public ResponseEntity<ResponseDTO> createUser(@RequestBody @Valid  UserDTO userDTO) throws HmsExceptions {
             userService.createUser(userDTO);
             return new ResponseEntity<>(new ResponseDTO("User Created Successfully"), HttpStatus.CREATED);
