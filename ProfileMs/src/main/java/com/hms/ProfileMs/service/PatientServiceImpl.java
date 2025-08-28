@@ -39,5 +39,18 @@ public class PatientServiceImpl implements PatientService {
         // Implementation logic here
         return null; // Replace with actual implementation
     }
+
+    @Override
+    public PatientDTO updatePatient(PatientDTO patientDTO) throws HmsExceptions {
+        // TODO Auto-generated method stub
+         patientRepository.findById(patientDTO.getId()).orElseThrow(()->new HmsExceptions("PATIENT_NOT_FOUND"));
+        return patientRepository.save(patientDTO.toEntity()).toDto();
+    }
+
+    @Override
+    public Boolean patientExists(Long id) throws HmsExceptions {
+        // TODO Auto-generated method stub
+        return patientRepository.existsById(id);
+    }
     
 }

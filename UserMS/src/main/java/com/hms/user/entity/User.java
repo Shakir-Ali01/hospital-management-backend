@@ -20,5 +20,6 @@ public class User {
     private String email;
     private String password;
     private Roles role;
+    private Long profileId; // To link with Doctor or Patient profile
 
 }

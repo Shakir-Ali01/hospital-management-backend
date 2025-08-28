@@ -19,6 +19,8 @@ public class PatientDTO {
     private String address; 
     private String aadhaarNumber;
     private BloodGroup bloodGroup;
+    private String allergies;
+    private String chronicDiseases;
     public Patient toEntity() {
         return new Patient(
                 this.id,
@@ -28,7 +30,9 @@ public class PatientDTO {
                 this.phone,
                 this.address,
                 this.aadhaarNumber,
-                this.bloodGroup
+                this.bloodGroup,
+                this.allergies,
+                this.chronicDiseases
         );
     }
 }

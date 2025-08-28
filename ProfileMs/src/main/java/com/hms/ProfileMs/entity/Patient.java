@@ -32,6 +32,8 @@ public class Patient {
      @Column(unique = true)
     private String aadhaarNumber;
     private BloodGroup bloodGroup;
+    private String allergies;
+    private String chronicDiseases;
     public PatientDTO toDto() {
         return new PatientDTO(
                 this.id,
@@ -41,7 +43,9 @@ public class Patient {
                 this.phone,
                 this.address,
                 this.aadhaarNumber,
-                this.bloodGroup
+                this.bloodGroup,
+                this.allergies,
+                this.chronicDiseases
         );
     }
 }

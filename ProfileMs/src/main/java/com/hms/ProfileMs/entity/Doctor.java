@@ -32,6 +32,7 @@ public class Doctor {
     private String specialization;
     private String department;
     private Integer totalExp;
+    
     public DoctorDTO toDto() {
         return new DoctorDTO(
                 this.id,

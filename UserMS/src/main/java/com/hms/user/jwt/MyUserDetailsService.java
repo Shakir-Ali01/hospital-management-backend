@@ -30,6 +30,7 @@ public class MyUserDetailsService implements UserDetailsService {
                 userDTO.getPassword(),
                 userDTO.getRole(),
                 userDTO.getName(),
+                userDTO.getProfileId(),
                 null);
         }catch(HmsExceptions e){
             e.printStackTrace();

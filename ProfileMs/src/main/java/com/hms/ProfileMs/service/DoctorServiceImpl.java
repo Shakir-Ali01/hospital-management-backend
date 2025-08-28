@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.stereotype.Service;
 
 import com.hms.ProfileMs.dto.DoctorDTO;
+import com.hms.ProfileMs.dto.PatientDTO;
 import com.hms.ProfileMs.exceptions.HmsExceptions;
 import com.hms.ProfileMs.repository.DoctorRepository;
 import com.hms.ProfileMs.repository.PatientRepository;
@@ -39,5 +40,21 @@ public class DoctorServiceImpl implements DoctorService {
         // Implementation logic for retrieving all doctors
         return null; // Placeholder return statement
     }
+
+    @Override
+    public DoctorDTO updateDoctor(DoctorDTO doctorDTO) throws HmsExceptions {
+        // TODO Auto-generated method stub
+       doctorRepository.findById(doctorDTO.getId()).orElseThrow(()->new HmsExceptions("DOCTOR_NOT_FOUND"));
+        return doctorRepository.save(doctorDTO.toEntity()).toDto();
+        
+    }
+
+    @Override
+    public Boolean doctorExists(Long id) throws HmsExceptions {
+        // TODO Auto-generated method stub
+        return doctorRepository.existsById(id);
+    }
+
+   
     
 }
