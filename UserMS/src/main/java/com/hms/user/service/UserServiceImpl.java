@@ -6,19 +6,21 @@ import com.hms.user.exceptions.HmsExceptions;
 import com.hms.user.repository.UserRepository;
 import com.hms.user.utility.UserMapper;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
+@Transactional
 public class UserServiceImpl implements  UserService{
     //ingectiong the repository
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder; // now injected via constructor
     private final UserMapper userMapper;//now injected via constructor
+    private final ApiService apiService;
     @Override
     public void createUser(UserDTO userDTO) throws HmsExceptions {
 
@@ -27,6 +29,9 @@ public class UserServiceImpl implements  UserService{
             throw new HmsExceptions("USER_ALREADY_EXISTS");
         }
         userDTO.setPassword(passwordEncoder.encode(userDTO.getPassword()));
+        Long profileId = apiService.addProfile(userDTO).block();
+        System.out.println(profileId);
+        userDTO.setProfileId(profileId);
         userRepository.save(userMapper.toEntity(userDTO));
     }
     // @Override
