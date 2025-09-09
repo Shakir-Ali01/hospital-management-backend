@@ -1,5 +1,7 @@
 package com.hms.appointment.service;
 
+import java.util.List;
+
 import org.springframework.stereotype.Service;
 
 import com.hms.appointment.clients.ProfileClient;
@@ -90,6 +92,34 @@ public class AppointmentServiceImpl implements AppointmentService {
            appointmentDTO.getDoctorId(),doctorDTO.getName(),
            appointmentDTO.getAppointmentDateTime(),appointmentDTO.getStatus(),
            appointmentDTO.getReason(),appointmentDTO.getNotes());
+    }
+
+    @Override
+    public List<AppointmentDetailsDTO> getAllAppointmentByPatient(Long patientId) throws HmsException {
+        // TODO Auto-generated method stub
+        /*Here we are getting the doctor id from the appoitmnet table using the patientID and after that doctro id
+        we are getting the doctro name from the doctor api which is in the profile ms so we are 
+        calling using the webclient*/
+        return appointmentRepository.findAllByPatientId(patientId).stream()
+            .map(appointment->{ DoctorDTO doctorDTO=
+            profileClient.getDoctorById(appointment.getDoctorId());
+            appointment.setDoctorName(doctorDTO.getName());
+            return appointment;
+            }).toList();
+    }
+     @Override
+    public List<AppointmentDetailsDTO> getAllAppointmentByDoctor(Long doctorId) throws HmsException {
+        // TODO Auto-generated method stub
+        /*Here we are getting the doctor id from the appoitmnet table using the patientID and after that doctro id
+        we are getting the doctro name from the doctor api which is in the profile ms so we are 
+        calling using the webclient*/
+        return appointmentRepository.findAllByDoctorId(doctorId).stream()
+            .map(appointment->{ PatientDTO patientDTO=
+            profileClient.getPatientById(appointment.getPatientId());
+            appointment.setPatientName(patientDTO.getName());
+            appointment.setPatientPhone(patientDTO.getPhone());
+            return appointment;
+            }).toList();
     }
     
 }

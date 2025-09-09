@@ -1,5 +1,7 @@
 package com.hms.appointment.api;
 
+import java.util.List;
+
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
@@ -41,7 +43,7 @@ public class AppointmentAPI {
         return new ResponseEntity<>("Appointment Cancelled",HttpStatus.OK);
     }
     @GetMapping("/getAppointment/{appointmentId}")
-    public ResponseEntity<AppointmentDTO> getMethodName(@PathVariable Long appointmentId) throws HmsException {
+    public ResponseEntity<AppointmentDTO> getAppointmentDetailsById(@PathVariable Long appointmentId) throws HmsException {
         AppointmentDTO appointmentDetails=appointmentService.getAppointmentDetails(appointmentId);
         return new ResponseEntity<>(appointmentDetails,HttpStatus.OK);
     }
@@ -49,6 +51,13 @@ public class AppointmentAPI {
     public ResponseEntity<AppointmentDetailsDTO> getAppointmentDetailsWithName(@PathVariable Long  appointmentId) throws HmsException {
         return new ResponseEntity<>(appointmentService.getAppointmentDetailsWithName(appointmentId),HttpStatus.OK);
     }
-    
+    @GetMapping("/getAllAppointmentByPatient/{patientId}")
+    public ResponseEntity<List<AppointmentDetailsDTO>> getAllAppointmentByPatientId(@PathVariable Long patientId) throws HmsException{
+     return new ResponseEntity<>(appointmentService.getAllAppointmentByPatient(patientId),HttpStatus.OK);
+    }
+    @GetMapping("/getAllAppointmentByDoctorId/{doctorId}")
+    public ResponseEntity<List<AppointmentDetailsDTO>> getAllAppointmentByDoctorId(@PathVariable Long doctorId) throws HmsException{
+     return new ResponseEntity<>(appointmentService.getAllAppointmentByDoctor(doctorId),HttpStatus.OK);
+    }
     
 }

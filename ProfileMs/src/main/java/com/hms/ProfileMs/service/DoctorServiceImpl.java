@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.stereotype.Service;
 
 import com.hms.ProfileMs.dto.DoctorDTO;
+import com.hms.ProfileMs.dto.DoctorDropdown;
 import com.hms.ProfileMs.dto.PatientDTO;
 import com.hms.ProfileMs.exceptions.HmsExceptions;
 import com.hms.ProfileMs.repository.DoctorRepository;
@@ -53,6 +54,12 @@ public class DoctorServiceImpl implements DoctorService {
     public Boolean doctorExists(Long id) throws HmsExceptions {
         // TODO Auto-generated method stub
         return doctorRepository.existsById(id);
+    }
+
+    @Override
+    public List<DoctorDropdown> getDoctorDropdown() throws HmsExceptions {
+        // TODO Auto-generated method stub
+       return doctorRepository.findAllDoctorDropdowns();
     }
 
    
