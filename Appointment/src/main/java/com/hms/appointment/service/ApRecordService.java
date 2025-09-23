@@ -8,4 +8,5 @@ public interface ApRecordService {
     public void updateApRecord(ApRecordDTO request) throws HmsException;
     public ApRecordDTO getApRecordByAppointmentId(Long appintmentId) throws HmsException;
     public ApRecordDTO getApRecordById(Long Id) throws HmsException;
+    public ApRecordDTO getApRecordDetailsByAppointmentId(Long appointmentId) throws HmsException;
 }

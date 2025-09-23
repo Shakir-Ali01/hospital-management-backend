@@ -8,9 +8,7 @@ import com.hms.appointment.entity.ApRecord;
 import com.hms.appointment.entity.Appointment;
 import com.hms.appointment.utility.StringUtilityConverter;
 
-import jakarta.persistence.FetchType;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.OneToOne;
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -28,6 +26,7 @@ public class ApRecordDTO {
     private List<String> tests;
     private String notes;
     private String referral;
+    private PrescriptionDTO prescription;
     private LocalDate followUpDate;
     private LocalDateTime createdAt;
 

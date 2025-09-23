@@ -41,7 +41,7 @@ public class ApRecord {
     public ApRecordDTO toDTO(){
         return new ApRecordDTO(id,patientId,doctorId, appointment.getId(),
         StringUtilityConverter.convertStringToList(symptoms),diagnosis,StringUtilityConverter.convertStringToList(tests),
-        notes,referral,followUpDate,createdAt);
+        notes,referral,null,followUpDate,createdAt);
     }
 
 }
