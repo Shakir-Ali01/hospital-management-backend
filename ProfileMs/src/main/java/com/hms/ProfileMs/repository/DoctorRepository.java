@@ -19,4 +19,7 @@ public interface DoctorRepository extends JpaRepository<Doctor, Long> {
     Optional<Doctor>  findByLicenceNumber(String licenceNumber);
     @Query("SELECT d.Id As id, d.name As name from Doctor d")
     List<DoctorDropdown> findAllDoctorDropdowns();
+
+     @Query("SELECT d.Id As id, d.name As name from Doctor d WHERE d.Id IN ?1")
+     List<DoctorDropdown> findAllDoctorDropdownsByIds(List<Long> ids);
 }

@@ -4,6 +4,7 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 import com.hms.appointment.dto.ApRecordDTO;
+import com.hms.appointment.dto.RecordDetailsDTO;
 import com.hms.appointment.utility.StringUtilityConverter;
 
 import jakarta.persistence.Entity;
@@ -42,6 +43,12 @@ public class ApRecord {
         return new ApRecordDTO(id,patientId,doctorId, appointment.getId(),
         StringUtilityConverter.convertStringToList(symptoms),diagnosis,StringUtilityConverter.convertStringToList(tests),
         notes,referral,null,followUpDate,createdAt);
+    }
+
+    public RecordDetailsDTO toDetailsDTO(){
+        return new RecordDetailsDTO(id,patientId,doctorId,null, appointment.getId(),
+        StringUtilityConverter.convertStringToList(symptoms),diagnosis,StringUtilityConverter.convertStringToList(tests),
+        notes,referral,followUpDate,createdAt);
     }
 
 }

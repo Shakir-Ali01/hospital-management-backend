@@ -18,6 +18,7 @@ import com.hms.ProfileMs.dto.PatientDTO;
 import com.hms.ProfileMs.exceptions.HmsExceptions;
 import com.hms.ProfileMs.service.DoctorService;
 
+
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -50,5 +51,10 @@ public class DoctorAPI {
     public ResponseEntity<List<DoctorDropdown>> getDoctorDropdown() throws HmsExceptions {
        return new ResponseEntity<>(doctorService.getDoctorDropdown(),HttpStatus.OK);
     }
+    @GetMapping("/getDoctorsById")
+    public ResponseEntity<List<DoctorDropdown>> getDoctorsById(@RequestParam List<Long> ids) throws HmsExceptions {
+        return new ResponseEntity<>(doctorService.getDoctorDropdownById(ids), HttpStatus.OK);
+    }
+    
     
 }

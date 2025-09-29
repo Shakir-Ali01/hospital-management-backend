@@ -3,6 +3,7 @@ package com.hms.appointment.entity;
 import java.time.LocalDate;
 
 import com.hms.appointment.dto.PrescriptionDTO;
+import com.hms.appointment.dto.PrescriptionDetailsDTO;
 
 import jakarta.annotation.Generated;
 import jakarta.persistence.Entity;
@@ -44,4 +45,21 @@ public PrescriptionDTO toDTO() {
         null // Medicines can be set separately
     );
 }
+
+
+public PrescriptionDetailsDTO toDetailsDTO() {
+    return new PrescriptionDetailsDTO(
+        id,
+        patientId,
+        doctorId,
+        null, // Doctor name can be set separately
+        appointment.getId(),
+        prescriptionDate,
+        notes,
+        null // Medicines can be set separately
+    );
+
+}
+
+
 }
