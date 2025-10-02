@@ -22,8 +22,9 @@ public class MedicineInventoryDTO {
     private String batchNo;
      private LocalDate expiryDate;
     private LocalDate addedDate; 
-
+    private Integer initialQuantity;
+    private StockStatus status;
     public MedicineInventory toEntity() {
-        return new MedicineInventory(id, new Medicine(medicineId), quantity, batchNo, expiryDate, addedDate);
+        return new MedicineInventory(id, new Medicine(medicineId), quantity, batchNo, expiryDate, addedDate,initialQuantity,status);
     }   
 }

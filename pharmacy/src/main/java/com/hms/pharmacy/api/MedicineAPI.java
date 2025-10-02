@@ -37,7 +37,7 @@ public class MedicineAPI {
     }
     
     @GetMapping("/getMedicineById/{id}")
-    public ResponseEntity<MedicineDTO> getMethodName(@PathVariable Long id) throws HmsException {
+    public ResponseEntity<MedicineDTO> getMedicineById(@PathVariable Long id) throws HmsException {
         return new ResponseEntity<>(medicineService.getMedicineById(id), HttpStatus.OK);
     }
 

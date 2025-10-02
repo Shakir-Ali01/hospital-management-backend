@@ -28,13 +28,13 @@ public class Medicine {
     private String manufacturer;
 
     private Integer unitPrice;
+    private Integer stock;
     private LocalDateTime createdAt;
-
      public Medicine(Long id) {
         this.id = id;
     }
-
+  
     public MedicineDTO toDTO() {
-        return new MedicineDTO(id, name, dosage, category, type, manufacturer, unitPrice, createdAt);
+        return new MedicineDTO(id, name, dosage, category, type, manufacturer, unitPrice,stock,createdAt);
     }
 }

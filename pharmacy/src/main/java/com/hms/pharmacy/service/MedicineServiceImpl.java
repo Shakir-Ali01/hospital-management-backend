@@ -26,6 +26,7 @@ public class MedicineServiceImpl implements MedicineService {
          if (existingMedicine.isPresent()) {
               throw new HmsException("MEDICINE_ALREADY_EXISTS.");
          }
+           medicineDTO.setStock(0);
            medicineDTO.setCreatedAt(LocalDateTime.now());
            medicineRepository.save(medicineDTO.toEntity());
            return medicineDTO.getId();
@@ -70,6 +71,31 @@ public class MedicineServiceImpl implements MedicineService {
        /* return  ((List<Medicine>)medicineRepository.findAll()). we are converting iterable to list
           stream().map(Medicine::toDTO).toList();*/
       
+    }
+
+    @Override
+    public Integer getStockById(Long id) throws HmsException {
+        // TODO Auto-generated method stub
+       return medicineRepository.findStockById(id).orElseThrow(()->new HmsException("MEDICINE_NOT_FOUND"));
+    }
+
+    @Override
+    public Integer addStock(Long id, Integer quantity) throws HmsException {
+        // TODO Auto-generated method stub
+        Medicine medicine=medicineRepository.findById(id).orElseThrow(()->new HmsException("MEDICINE_NOT_FOUND"));
+        medicine.setStock(medicine.getStock() !=null ? medicine.getStock()+ quantity : quantity);
+        medicineRepository.save(medicine);
+        return medicine.getStock();
+    }
+
+    @Override
+    public Integer removeStock(Long id, Integer quantity) throws HmsException {
+        // TODO Auto-generated method stub
+        Medicine medicine=medicineRepository.findById(id).orElseThrow(()->new HmsException("MEDICINE_NOT_FOUND"));
+        medicine.setStock(medicine.getStock() !=null ? medicine.getStock() - quantity : 0);
+        medicineRepository.save(medicine);
+        return medicine.getStock();
+       
     }
     
 
